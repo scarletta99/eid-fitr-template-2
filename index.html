@@ -1,14 +1,220 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Eid Al-Fitr — Saphire Green</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+  <!-- Background layers -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="petals-wrap" id="petals"></div>
+  <div class="lantern-wrap" id="lanterns"></div>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg"/>
+  </audio>
+
+  <!-- ═══════════════════════════════
+       SCENE
+  ════════════════════════════════ -->
+  <div class="scene">
+    <div class="book" id="book">
+
+      <!-- ── COVER ── -->
+      <div class="cover" id="cover">
+
+        <!-- Mosque dome illustration -->
+        <div class="cover-mosque">
+          <svg width="120" height="90" viewBox="0 0 120 90" fill="none">
+            <!-- Main dome -->
+            <ellipse cx="60" cy="55" rx="38" ry="12" fill="#d0eadf" opacity="0.5"/>
+            <path d="M22 55 Q22 22 60 18 Q98 22 98 55Z" fill="#71a595"/>
+            <path d="M30 55 Q30 28 60 24 Q90 28 90 55Z" fill="#5d9080"/>
+            <!-- Dome highlight -->
+            <path d="M40 45 Q48 28 60 25 Q50 30 45 45Z" fill="white" opacity="0.15"/>
+            <!-- Crescent on top -->
+            <path d="M56 14 Q54 8 58 6 Q55 10 60 12 Q57 12 56 14Z" fill="#f4bc63"/>
+            <line x1="60" y1="12" x2="60" y2="18" stroke="#f4bc63" stroke-width="1.5"/>
+            <!-- Small side domes -->
+            <path d="M2 55 Q2 42 18 40 Q34 42 34 55Z" fill="#71a595" opacity="0.7"/>
+            <path d="M86 55 Q86 42 102 40 Q118 42 118 55Z" fill="#71a595" opacity="0.7"/>
+            <!-- Minarets -->
+            <rect x="8"  y="30" width="8"  height="25" rx="2" fill="#71a595" opacity="0.8"/>
+            <path d="M8 30 Q12 22 16 30Z" fill="#f4bc63" opacity="0.9"/>
+            <rect x="104" y="30" width="8" height="25" rx="2" fill="#71a595" opacity="0.8"/>
+            <path d="M104 30 Q108 22 112 30Z" fill="#f4bc63" opacity="0.9"/>
+            <!-- Ground line -->
+            <rect x="0" y="55" width="120" height="4" rx="2" fill="#71a595" opacity="0.4"/>
+          </svg>
+        </div>
+
+        <!-- Crescent + star -->
+        <div class="cover-crescent">
+          <svg width="64" height="64" viewBox="0 0 80 80" fill="none">
+            <path d="M50 38C50 29.2 44.5 21.8 36.8 19.4C44.5 17 50 9.6 50 0.8
+                     C55.8 6.6 59 14.4 59 22.4C59 30.4 55.8 38.2 50 44
+                     C44.2 49.8 36.4 53 28 53C19.6 53 11.8 49.8 6 44
+                     C17.4 44 27.2 41.6 32.6 36.2C38 30.8 39.2 20.4 39.2 11.6
+                     C45 17.4 50 27.6 50 38Z"
+                  fill="url(#cg)"/>
+            <polygon points="58,6 59.2,10 63.4,10 60.1,12.6 61.3,16.6 58,14 54.7,16.6 55.9,12.6 52.6,10 56.8,10"
+                     fill="#f4bc63" opacity="0.95"/>
+            <defs>
+              <linearGradient id="cg" x1="0" y1="0" x2="80" y2="80">
+                <stop offset="0%"   stop-color="#f4e0ae"/>
+                <stop offset="100%" stop-color="#f4bc63"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="cover-arabic">عيد الفطر المبارك</div>
+        <div class="cover-arabic-sm">تقبّل الله منا ومنكم</div>
+        <div class="cover-title">Selamat Eid Al-Fitr</div>
+        <div class="cover-subtitle">1446 H</div>
+
+        <button class="open-btn" onclick="openCard()">✦ Buka Kartu ✦</button>
+        <div class="cover-hint">Klik untuk membuka kartu</div>
+
+        <!-- Decorative floral corners -->
+        <div class="floral tl">✿</div>
+        <div class="floral tr">✿</div>
+        <div class="floral bl">✿</div>
+        <div class="floral br">✿</div>
+
+      </div><!-- /cover -->
+
+      <!-- ── INNER PAGES ── -->
+      <div class="inner-pages" id="innerPages">
+
+        <!-- LEFT: Family Photo -->
+        <div class="page-left">
+
+          <!--
+            HARDCODE: Ganti src dengan foto keluarga
+            Contoh: src="assets/photo.jpg"
+          -->
+          <img id="familyPhoto" src="assets/photo.jpg" alt="Foto Keluarga"/>
+
+          <!-- Frame corners -->
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
+
+          <!-- Photo overlay caption -->
+          <div class="photo-caption">
+            <!-- HARDCODE: Ganti nama keluarga -->
+            <span class="photo-family-name">Keluarga Anda</span>
+            <span class="photo-year">Eid Al-Fitr 1446 H &nbsp;·&nbsp; 2025</span>
+          </div>
+
+          <!-- Floral top overlay -->
+          <div class="photo-floral-top">
+            <svg width="100%" height="60" viewBox="0 0 460 60" preserveAspectRatio="none">
+              <path d="M0,0 Q115,60 230,30 Q345,0 460,40 L460,0 Z" fill="#d0eadf" opacity="0.35"/>
+            </svg>
+          </div>
+
+        </div><!-- /page-left -->
+
+        <!-- RIGHT: Message -->
+        <div class="page-right">
+
+          <div class="right-header">
+            <svg width="28" height="28" viewBox="0 0 80 80" fill="none">
+              <path d="M50 38C50 29.2 44.5 21.8 36.8 19.4C44.5 17 50 9.6 50 0.8
+                       C55.8 6.6 59 14.4 59 22.4C59 30.4 55.8 38.2 50 44
+                       C44.2 49.8 36.4 53 28 53C19.6 53 11.8 49.8 6 44
+                       C17.4 44 27.2 41.6 32.6 36.2C38 30.8 39.2 20.4 39.2 11.6
+                       C45 17.4 50 27.6 50 38Z"
+                    fill="url(#cgr)"/>
+              <defs>
+                <linearGradient id="cgr" x1="0" y1="0" x2="80" y2="80">
+                  <stop offset="0%"   stop-color="#f4e0ae"/>
+                  <stop offset="100%" stop-color="#f4bc63"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="right-arabic-sm">عيد الفطر المبارك</span>
+          </div>
+
+          <div class="msg-divider">
+            <div class="msg-divider-line"></div>
+            <span class="msg-divider-icon">❋</span>
+            <div class="msg-divider-line"></div>
+          </div>
+
+          <div class="msg-title">Selamat Eid Al-Fitr</div>
+          <div class="msg-year">1446 H &nbsp;·&nbsp; Minal 'Aidin wal Faizin</div>
+
+          <!--
+            HARDCODE: Ganti isi pesan
+          -->
+          <div class="msg-body">
+            <p id="messageText">
+              Mohon maaf lahir dan batin.<br/><br/>
+              Semoga di hari yang fitri ini, kita semua kembali suci,
+              dipenuhi rahmat dan berkah Allah SWT.<br/><br/>
+              Selamat merayakan Idul Fitri bersama orang-orang tercinta. ❤️
+            </p>
+          </div>
+
+          <!--
+            HARDCODE: Ganti nama pengirim
+          -->
+          <div class="from-row">
+            <span class="from-label">Dari</span>
+            <span class="from-name">Keluarga Anda</span>
+          </div>
+
+          <!-- Ornament -->
+          <div class="ornament-row">
+            <span class="orn-leaf">❧</span>
+            <div class="ornament-dot"></div>
+            <div class="ornament-dot"></div>
+            <div class="ornament-dot"></div>
+            <span class="orn-leaf flip">❧</span>
+          </div>
+
+          <!-- Music player -->
+          <div class="music-player">
+            <button class="play-btn" onclick="toggleMusic()">
+              <span class="play-icon" id="playIcon">▶</span>
+            </button>
+            <div class="song-info">
+              <!-- HARDCODE: Ganti judul & artis lagu -->
+              <div class="song-title">Takbiran Eid Al-Fitr</div>
+              <div class="song-subtitle">Allahu Akbar · Allahu Akbar</div>
+            </div>
+            <div class="bars" id="bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+
+        </div><!-- /page-right -->
+
+      </div><!-- /inner-pages -->
+
+    </div><!-- /book -->
+  </div><!-- /scene -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
